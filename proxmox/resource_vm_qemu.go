@@ -12,6 +12,7 @@ import (
 
 	pxapi "github.com/Telmate/proxmox-api-go/proxmox"
 	"github.com/hashicorp/terraform/helper/schema"
+	"github.com/hashicorp/terraform/helper/validation"
 )
 
 func resourceVmQemu() *schema.Resource {
@@ -259,6 +260,12 @@ func resourceVmQemu() *schema.Resource {
 							Type:     schema.TypeBool,
 							Optional: true,
 							Default:  false,
+						},
+						"discard": &schema.Schema{
+							Type:         schema.TypeString,
+							Optional:     true,
+							Default:      "off",
+							ValidateFunc: validation.StringInSlice([]string{"on", "off"}, false),
 						},
 						"replicate": &schema.Schema{
 							Type:     schema.TypeBool,
